@@ -1,0 +1,61 @@
+[
+  {
+    "id": 1794499341176,
+    "date": "12/11/2026",
+    "heure": "17:02:21",
+    "parcelleId": 1794478593604,
+    "cultureId": "mais",
+    "traitementId": "engrais_croissance",
+    "traitementNom": "Engrais Croissance",
+    "variete": "",
+    "bbch": "00",
+    "surface": 3.66,
+    "commentaire": "",
+    "cible": "",
+    "applicateur": "",
+    "produits": [
+      {
+        "produitId": 9,
+        "dose": 350,
+        "unite": "kg/ha"
+      }
+    ]
+  },
+  {
+    "id": 1794499303908,
+    "date": "12/11/2026",
+    "heure": "17:01:43",
+    "parcelleId": 1794478593604,
+    "cultureId": "mais",
+    "traitementId": "semis",
+    "traitementNom": "Semis",
+    "variete": "MAS524",
+    "bbch": "00",
+    "surface": 3.66,
+    "commentaire": "",
+    "cible": "",
+    "applicateur": "",
+    "produits": [
+      {
+        "produitId": 2,
+        "dose": 150,
+        "unite": "kg/ha"
+      },
+      {
+        "produitId": 1,
+        "dose": 0.3,
+        "unite": "L/ha"
+      },
+      {
+        "produitId": 6,
+        "dose": 0.8,
+        "unite": "L/ha"
+      },
+      {
+        "produitId": 7,
+        "dose": 12,
+        "unite": "kg/ha"
+      }
+    ]
+  }
+]

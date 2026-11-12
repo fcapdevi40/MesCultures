@@ -1,0 +1,134 @@
+[
+  {
+    "id": "mais",
+    "nom": "Maïs",
+    "varietes": [
+      "DKC3796",
+      "P0725",
+      "P0837",
+      "MAS524"
+    ],
+    "traitements": [
+      {
+        "id": "semis",
+        "nom": "Semis",
+        "bbch": "00",
+        "produits": [
+          {
+            "produitId": 2,
+            "dose": 150,
+            "unite": "kg/ha"
+          },
+          {
+            "produitId": 1,
+            "dose": 0.3,
+            "unite": "L/ha"
+          },
+          {
+            "produitId": 6,
+            "dose": 0.8,
+            "unite": "L/ha"
+          },
+          {
+            "produitId": 7,
+            "dose": 12,
+            "unite": "kg/ha"
+          }
+        ]
+      },
+      {
+        "id": "engrais_croissance",
+        "nom": "Engrais Croissance",
+        "bbch": "01",
+        "produits": [
+          {
+            "produitId": 9,
+            "dose": 350,
+            "unite": "kg/ha"
+          }
+        ]
+      },
+      {
+        "id": "herbicide_croissance",
+        "nom": "Herbicide Croissance",
+        "bbch": "02",
+        "produits": [
+          {
+            "produitId": 8,
+            "dose": 1,
+            "unite": "L/ha"
+          }
+        ]
+      },
+      {
+        "id": "insecticide_croissance",
+        "nom": "Insecticide Croissance",
+        "bbch": "03",
+        "produits": [
+          {
+            "produitId": 1794498769485,
+            "dose": 0.5,
+            "unite": "L/ha"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jachere",
+    "nom": "Jachere",
+    "varietes": [],
+    "traitements": []
+  },
+  {
+    "id": "tournesol",
+    "nom": "Tournesol",
+    "varietes": [
+      "LG50500",
+      "Talento"
+    ],
+    "traitements": [
+      {
+        "id": "semis",
+        "nom": "Semis",
+        "bbch": "00",
+        "produits": [
+          {
+            "produitId": 2,
+            "dose": 100,
+            "unite": "kg/ha"
+          },
+          {
+            "produitId": 7,
+            "dose": 10,
+            "unite": "kg/ha"
+          }
+        ]
+      },
+      {
+        "id": "engrais_croissance",
+        "nom": "Engrais Croissance",
+        "bbch": "01",
+        "produits": [
+          {
+            "produitId": 9,
+            "dose": 100,
+            "unite": "kg/ha"
+          }
+        ]
+      },
+      {
+        "id": "herbicide_croissance",
+        "nom": "Herbicide Croissance",
+        "bbch": "02",
+        "produits": [
+          {
+            "produitId": 1794498769486,
+            "dose": 1,
+            "unite": "L/ha"
+          }
+        ]
+      }
+    ]
+  }
+]

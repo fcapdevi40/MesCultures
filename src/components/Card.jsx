@@ -1,0 +1,1 @@
+export default function Card({children,onClick}){if(onClick)return <button onClick={onClick} className="w-full bg-white rounded-3xl shadow p-4 mb-3 text-left">{children}</button>; return <div className="w-full bg-white rounded-3xl shadow p-4 mb-3">{children}</div>}

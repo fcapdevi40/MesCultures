@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "nom": "Calliprime",
+    "amm": "2200456",
+    "uniteDefaut": "L/ha",
+    "prix": 85,
+    "categorie": "Herbicide Semis"
+  },
+  {
+    "id": 2,
+    "nom": "18-22",
+    "amm": "",
+    "uniteDefaut": "kg/ha",
+    "prix": 0.74,
+    "categorie": "Engrais Starter"
+  },
+  {
+    "id": 3,
+    "nom": "Daxol",
+    "amm": "2140081",
+    "uniteDefaut": "kg/ha",
+    "prix": 15,
+    "categorie": "Insecticide Semis"
+  },
+  {
+    "id": 4,
+    "nom": "Helitox",
+    "amm": "2170012",
+    "uniteDefaut": "kg/ha",
+    "prix": 4.2,
+    "categorie": "Limacide"
+  },
+  {
+    "id": 5,
+    "nom": "18-46",
+    "amm": "",
+    "uniteDefaut": "kg/ha",
+    "prix": 0,
+    "categorie": "Engrais Starter"
+  },
+  {
+    "id": 6,
+    "nom": "Spectrum",
+    "amm": "1234567",
+    "uniteDefaut": "L/ha",
+    "prix": 37.5,
+    "categorie": "Herbicide Semis"
+  },
+  {
+    "id": 7,
+    "nom": "Trika",
+    "amm": "",
+    "uniteDefaut": "kg/ha",
+    "prix": 23,
+    "categorie": "Insecticide Semis"
+  },
+  {
+    "id": 8,
+    "nom": "Elumis",
+    "amm": "1234561",
+    "uniteDefaut": "L/ha",
+    "prix": 55,
+    "categorie": "Herbicide Croissance"
+  },
+  {
+    "id": 9,
+    "nom": "U46",
+    "amm": "1234561",
+    "uniteDefaut": "kg/ha",
+    "prix": 0.728,
+    "categorie": "Engrais Croissance"
+  },
+  {
+    "id": 1794498769485,
+    "nom": "Decis",
+    "amm": "1234562",
+    "uniteDefaut": "L/ha",
+    "prix": 13,
+    "categorie": "Insecticide Croissance"
+  },
+  {
+    "id": 1794498769486,
+    "nom": "Pulsar",
+    "amm": "1234563",
+    "uniteDefaut": "L/ha",
+    "prix": 20,
+    "categorie": "Herbicide Croissance"
+  }
+]
