@@ -4,102 +4,52 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-const DATA_DIR = path.join(__dirname, "data");
+// 1. Sert le site React compilé par Vite (dossier dist)
+const DIST_DIR = path.join(__dirname, "dist");
+app.use(express.static(DIST_DIR));
 
-// Nom de fichier autorisé : lettres, chiffres, _ et - uniquement, extension .json
-// (empêche d'écrire/lire en dehors du dossier data/)
+// 2. Gestion du dossier de données
+const DATA_DIR = path.join(__dirname, "data");
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
 function safePath(name) {
   if (!/^[A-Za-z0-9_-]+\.json$/.test(name)) return null;
   return path.join(DATA_DIR, name);
 }
 
-/*
- * Lire un fichier JSON
- * Exemple :
- * http://localhost:3000/data/produits.json
- */
 app.get("/data/:file", (req, res) => {
   const filePath = safePath(req.params.file);
-
-  if (!filePath) {
-    return res.status(400).json({ error: "Nom de fichier invalide" });
-  }
-
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({
-      error: "Fichier introuvable",
-    });
-  }
+  if (!filePath) return res.status(400).json({ error: "Nom de fichier invalide" });
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: "Fichier introuvable" });
 
   try {
-    const json = JSON.parse(
-      fs.readFileSync(
-        filePath,
-        "utf8"
-      )
-    );
-
+    const json = JSON.parse(fs.readFileSync(filePath, "utf8"));
     res.json(json);
   } catch (error) {
-    res.status(500).json({
-      error:
-        "Erreur lecture JSON",
-      details:
-        error.message,
-    });
+    res.status(500).json({ error: "Erreur lecture JSON", details: error.message });
   }
 });
 
-/*
- * Sauvegarder un fichier JSON
- * POST :
- *
- * http://localhost:3000/data/produits.json
- */
 app.post("/data/:file", (req, res) => {
   const filePath = safePath(req.params.file);
-
-  if (!filePath) {
-    return res.status(400).json({ success: false, error: "Nom de fichier invalide" });
-  }
-
-  if (!Array.isArray(req.body)) {
-    return res.status(400).json({ success: false, error: "Un tableau JSON est attendu" });
-  }
+  if (!filePath) return res.status(400).json({ success: false, error: "Nom de fichier invalide" });
+  if (!Array.isArray(req.body)) return res.status(400).json({ success: false, error: "Un tableau JSON est attendu" });
 
   try {
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify(
-        req.body,
-        null,
-        2
-      ),
-      "utf8"
-    );
-
-    res.json({
-      success: true,
-      file:
-        req.params.file,
-    });
+    fs.writeFileSync(filePath, JSON.stringify(req.body, null, 2), "utf8");
+    res.json({ success: true, file: req.params.file });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      error:
-        error.message,
-    });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
-/*
- * Sauvegarde : tous les fichiers de données dans un seul JSON
- */
 app.get("/backup", (req, res) => {
   try {
     const out = {};
@@ -112,12 +62,7 @@ app.get("/backup", (req, res) => {
   }
 });
 
-/*
- * Google Sheets : le serveur télécharge le classeur (au format xlsx) à la place du
- * navigateur, car Google n'autorise pas ce téléchargement directement depuis une page web.
- * Le classeur doit être partagé « Tous les utilisateurs disposant du lien » (lecteur).
- */
-const GSHEET_BASE = process.env.GSHEET_BASE || "https://docs.google.com";
+const GSHEET_BASE = process.env.GSHEET_BASE || "https://google.com";
 
 app.get("/import/gsheet", async (req, res) => {
   const m = /^https:\/\/docs\.google\.com\/spreadsheets\/d\/([A-Za-z0-9_-]{20,})/.exec(
@@ -125,7 +70,7 @@ app.get("/import/gsheet", async (req, res) => {
   );
   if (!m) {
     return res.status(400).json({
-      error: "Lien Google Sheets invalide (il doit commencer par https://docs.google.com/spreadsheets/d/…)",
+      error: "Lien Google Sheets invalide (il doit commencer par https://google.com/spreadsheets/d/…)",
     });
   }
 
@@ -154,9 +99,6 @@ app.get("/import/gsheet", async (req, res) => {
   }
 });
 
-/*
- * Campagnes disponibles : interventions_2027.json -> 2027
- */
 app.get("/annees", (req, res) => {
   try {
     const annees = fs
@@ -172,76 +114,22 @@ app.get("/annees", (req, res) => {
   }
 });
 
-/*
- * Liste des fichiers de données
- */
 app.get("/files", (req, res) => {
   try {
-    const files =
-      fs.readdirSync(
-        DATA_DIR
-      );
-
+    const files = fs.readdirSync(DATA_DIR);
     res.json(files);
   } catch (error) {
-    res.status(500).json({
-      error:
-        error.message,
-    });
+    res.status(500).json({ error: error.message });
   }
 });
 
-/*
- * Sauvegarde complète
- */
-app.get("/backup", (req, res) => {
-  try {
-    const backup = {};
-
-    const files =
-      fs.readdirSync(
-        DATA_DIR
-      );
-
-    files.forEach((file) => {
-      const content =
-        JSON.parse(
-          fs.readFileSync(
-            path.join(
-              DATA_DIR,
-              file
-            ),
-            "utf8"
-          )
-        );
-
-      backup[file] =
-        content;
-    });
-
-    res.json(backup);
-  } catch (error) {
-    res.status(500).json({
-      error:
-        error.message,
-    });
-  }
+// 3. Redirige toutes les autres requêtes vers l'application React (compatible Express 5)
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
-app.listen(
-  PORT,
-  "0.0.0.0",
-  () => {
-    console.log("");
-    console.log(
-      "🚜 MESCULTURES SERVER"
-    );
-    console.log(
-      "===================="
-    );
-    console.log(
-      `Local : http://localhost:${PORT}`
-    );
-    console.log("");
-  }
-);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("🚜 MESCULTURES SERVER");
+  console.log("====================");
+  console.log(`Serveur actif sur le port ${PORT}`);
+});
