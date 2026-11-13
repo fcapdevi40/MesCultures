@@ -1,7 +1,9 @@
-// L'adresse du serveur suit celle de la page : fonctionne sur le PC (localhost)
-// comme depuis un téléphone sur le même réseau (ex: http://192.168.1.20:5173).
+// En développement (Vite sur port 5173), on pointe vers le port 3000.
+// En production (Render), on utilise le même domaine sans port (chaîne vide "").
 const API_URL =
-  import.meta.env.VITE_API_URL || `http://${window.location.hostname}:3000`;
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? `http://${window.location.hostname}:3000` : "");
+
 
 // Un fichier d'interventions par campagne : interventions_2027.json, etc.
 export const fichierInterventions = (annee) => `interventions_${annee}.json`;
